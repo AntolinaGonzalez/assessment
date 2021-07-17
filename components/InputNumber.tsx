@@ -3,18 +3,18 @@ import React from "react";
 import { useState } from "react";
 import useMobile from "../hooks/useMobile";
 import { useForm } from "react-hook-form";
+import { conversionTool } from "./conversionTool";
 
 export default function InputNumber() {
-  const [numberInputValue, setNumberInputValue] = useState();
-  
-  const {
-    register,
-    getValues
-  } = useForm();
+  const [numberInputValue, setNumberInputValue] = useState("");
+  const { register, getValues, setValue } = useForm();
   const { ref, ...rest } = register("number");
-  const submitHandler = (event: { preventDefault: () => void; }) => {
+  const submitHandler = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    const singleValue = getValues("number"); 
+    const singleValue = getValues("number");
+    const result = conversionTool(singleValue);
+    setNumberInputValue(result);
+    setValue("number", "");
   };
   return (
     <>
@@ -36,13 +36,19 @@ export default function InputNumber() {
           }}
           id="number"
           variant="outlined"
-          inputRef={ref}{...rest}
+          inputRef={ref}
+          {...rest}
           name="number"
         />
-        <Button color="primary" type="submit">
-          Confirm
-        </Button>
+        <Button color="primary" type="submit"></Button>
       </form>
+      {numberInputValue ? (
+        <Box>
+          <Typography>Output: {numberInputValue}</Typography>
+        </Box>
+      ) : (
+        ""
+      )}
     </>
   );
 }
