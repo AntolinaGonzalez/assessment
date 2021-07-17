@@ -1,8 +1,9 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Box, Container, TextField, Typography } from "@material-ui/core";
+import { Box, Container, Typography, Button } from "@material-ui/core";
 import React from "react";
 import useMobile from "../hooks/useMobile";
+import InputNumber from "../components/InputNumber";
 
 export default function Home() {
   const isMobile = useMobile();
@@ -34,24 +35,7 @@ export default function Home() {
           </Box>
         </Box>
         <Box p={3}>
-          <Box p={2}>
-            <Typography variant="subtitle1">
-              Input the number you want to convert!
-            </Typography>
-          </Box>
-          <TextField
-            id="outlined-full-width"
-            label="Input your number"
-            style={{ margin: 8 }}
-            placeholder="42"
-            helperText="number conversion"
-            fullWidth
-            margin="normal"
-            InputLabelProps={{
-              shrink: true,
-            }}
-            variant="outlined"
-          />
+          <InputNumber />
           <Box p={2}>
             <Typography variant="subtitle1">Previous conversions</Typography>
           </Box>
