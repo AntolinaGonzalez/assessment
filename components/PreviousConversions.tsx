@@ -17,12 +17,10 @@ const PreviousConversions: React.FC<Props> = ({ previousConversion }) => {
     storedConversions = JSON.parse(localStorage.getItem("conversions") || "");
   }
 
-  
-
   return (
     <>
       {Object.keys(storedConversions).length ? (
-        <Box p={3}>
+        <>
           <Box p={2}>
             <Typography variant="subtitle1">Previous conversions</Typography>
           </Box>
@@ -30,6 +28,7 @@ const PreviousConversions: React.FC<Props> = ({ previousConversion }) => {
             height={isMobile ? 200 : 270}
             width="100%"
             style={{ border: "solid 0.3px lightgrey", borderRadius: 5 }}
+            overflow="auto"
           >
             {Object.values(storedConversions).map((value, index) => (
               <Box m={1.5} key={index}>
@@ -37,7 +36,7 @@ const PreviousConversions: React.FC<Props> = ({ previousConversion }) => {
               </Box>
             ))}
           </Box>
-        </Box>
+        </>
       ) : (
         ""
       )}

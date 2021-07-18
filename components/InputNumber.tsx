@@ -16,13 +16,13 @@ export default function InputNumber() {
     const singleValue = getValues("number");
     const result = conversionTool(singleValue);
     setNumberInputValue(result as string);
-    addResult(result as string);
+    addResult(singleValue,result as string);
     setValue("number", "");
   };
 
-  const addResult = (newValue: string) => {
+  const addResult = (singleValue:number,newValue: string) => {
     const prevState = [...prevResult];
-    prevState.splice(0, 0, newValue);
+    prevState.splice(0, 0, singleValue + " = " +newValue);
     setPrevResult(prevState);
   };
   return (
