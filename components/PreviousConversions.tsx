@@ -13,6 +13,8 @@ const PreviousConversions: React.FC<Props> = ({ previousConversion }) => {
       storage = JSON.parse(localStorage.getItem("conversions") || "");
       storage = { ...storage, ...previousConversion };
       localStorage.setItem("conversions", JSON.stringify(storage));
+    }else {
+      localStorage.setItem("conversions", JSON.stringify(previousConversion));
     }
     storedConversions = JSON.parse(localStorage.getItem("conversions") || "");
   }
