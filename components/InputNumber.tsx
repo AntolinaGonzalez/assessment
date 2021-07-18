@@ -1,20 +1,29 @@
 import { Box, Button, TextField, Typography } from "@material-ui/core";
 import React from "react";
 import { useState } from "react";
-import useMobile from "../hooks/useMobile";
 import { useForm } from "react-hook-form";
-import { conversionTool } from "./conversionTool";
+import { conversionTool } from "./ConversionTool";
+import PreviousConversions from "./PreviousConversions";
 
 export default function InputNumber() {
+  let conversions: Array<string> = [];
   const [numberInputValue, setNumberInputValue] = useState("");
+  const [prevResult, setPrevResult] = useState<Array<string>>([]);
   const { register, getValues, setValue } = useForm();
   const { ref, ...rest } = register("number");
-  const submitHandler = (event: { preventDefault: () => void }) => {
+  const handleConversion = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     const singleValue = getValues("number");
     const result = conversionTool(singleValue);
-    setNumberInputValue(result);
+    setNumberInputValue(result as string);
+    addResult(result as string);
     setValue("number", "");
+  };
+
+  const addResult = (newValue: string) => {
+    const prevState = [...prevResult];
+    prevState.splice(0,0,newValue);
+    setPrevResult(prevState);
   };
   return (
     <>
@@ -23,7 +32,7 @@ export default function InputNumber() {
           Input the number you want to convert!
         </Typography>
       </Box>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={handleConversion}>
         <TextField
           label="Input your number"
           style={{ margin: 8 }}
@@ -46,6 +55,11 @@ export default function InputNumber() {
         <Box>
           <Typography>Output: {numberInputValue}</Typography>
         </Box>
+      ) : (
+        ""
+      )}
+      {prevResult?.length ? (
+        <PreviousConversions previousConversion={prevResult} />
       ) : (
         ""
       )}

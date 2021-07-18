@@ -7,6 +7,7 @@ import InputNumber from "../components/InputNumber";
 
 export default function Home() {
   const isMobile = useMobile();
+  
   return (
     <>
       <Container>
@@ -35,22 +36,8 @@ export default function Home() {
           </Box>
         </Box>
         <Box p={3}>
-          <InputNumber />
-          <Box p={2}>
-            <Typography variant="subtitle1">Previous conversions</Typography>
-          </Box>
-          <Box
-            height={isMobile ? 200 : 270}
-            width="100%"
-            style={{ border: "solid 0.3px lightgrey", borderRadius: 5 }}
-          >
-            <Box m={1.5}>
-              <Typography variant="subtitle1">Previous conversions</Typography>
-            </Box>
-            <Box m={1.5}>
-              <Typography variant="subtitle1">Previous conversions</Typography>
-            </Box>
-          </Box>
+          <InputNumber/>
+          
         </Box>
       </Container>
       <Box
