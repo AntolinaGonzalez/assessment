@@ -1,5 +1,6 @@
 export const conversionTool = (singleValue: String) => {
   let result = "";
+
   if (singleValue.length == 1) {
     return unit(singleValue);
   }
@@ -16,22 +17,28 @@ export const conversionTool = (singleValue: String) => {
       hundredOutput = unit(houndredValue.charAt(0)) + " thousand ";
     }
     const tenValue = ten(singleValue.slice(2, 4));
-    return hundredOutput  + tenValue;
+    return hundredOutput + tenValue;
+  }
+  if (singleValue.length == 5) {
+    return thousand(singleValue as string);
   }
 
   return result;
 };
 const thousand = (thousand: string) => {
-  const thousandValue = thousand.charAt(0);
-  const hundredValue = hundred(thousand.slice(1, thousand.length));
-  return unit(thousandValue) + " thousand and " + hundredValue;
+  const thousandValue = ten(thousand.slice(0, 2));
+  let hundredValue = hundred(thousand.slice(2, 5));
+
+  return thousandValue + " thousand " + hundredValue;
 };
 
 const hundred = (hundred: string) => {
-  const hundredValue = hundred.charAt(0);
-  const tenInput = hundred.slice(1, hundred.length);
-  let tenValue = ten(tenInput as string);
-  return unit(hundredValue) + " hundred and " + tenValue;
+  let hundredValue =
+    unit(hundred.charAt(0)) === "Zero"
+      ? ""
+      : unit(hundred.charAt(0)) + " hundred ";
+  let tenValue = ten(hundred.slice(1, hundred.length));
+  return hundredValue + (tenValue?.length ? "" + tenValue : "");
 };
 
 const ten = (ten: string) => {
@@ -111,6 +118,8 @@ const unit = (unit: String) => {
       return "Eight";
     case "9":
       return "Nine";
+    case "0":
+      return "Zero";
     default:
       return "";
   }
