@@ -7,7 +7,7 @@ interface Props {
 const PreviousConversions: React.FC<Props> = ({ previousConversion }) => {
   const isMobile = useMobile();
   localStorage.setItem("conversions", JSON.stringify(previousConversion));
-  var storedConversions = JSON.parse(localStorage.getItem("conversions"));
+  var storedConversions = JSON.parse(localStorage.getItem("conversions") || "");
   console.log("aver si se guardo", storedConversions);
   return (
     <>
