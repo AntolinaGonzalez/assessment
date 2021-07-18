@@ -21,9 +21,9 @@ const PreviousConversions: React.FC<Props> = ({ previousConversion }) => {
             width="100%"
             style={{ border: "solid 0.3px lightgrey", borderRadius: 5 }}
           >
-            {previousConversion.map((index,conversion) => (
-              <Box m={1.5} key={index}>
-                <Typography variant="subtitle1">{conversion}</Typography>
+            {previousConversion.map((index, conversion) => (
+              <Box m={1.5} key={conversion}>
+                <Typography variant="subtitle1">{index}</Typography>
               </Box>
             ))}
           </Box>
