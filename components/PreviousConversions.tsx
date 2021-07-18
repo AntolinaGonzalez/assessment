@@ -8,13 +8,16 @@ const PreviousConversions: React.FC<Props> = ({ previousConversion }) => {
   const isMobile = useMobile();
   let storage = [];
   let storedConversions = [];
-  if (localStorage.getItem("conversions")) {
-    storage = JSON.parse(localStorage.getItem("conversions") || "");
-    storage = { ...storage, ...previousConversion };
-    localStorage.setItem("conversions", JSON.stringify(storage));
+  if (typeof window !== "undefined") {
+    if (localStorage.getItem("conversions")) {
+      storage = JSON.parse(localStorage.getItem("conversions") || "");
+      storage = { ...storage, ...previousConversion };
+      localStorage.setItem("conversions", JSON.stringify(storage));
+    }
+    storedConversions = JSON.parse(localStorage.getItem("conversions") || "");
   }
 
-  storedConversions = JSON.parse(localStorage.getItem("conversions") || "");
+  
 
   return (
     <>
