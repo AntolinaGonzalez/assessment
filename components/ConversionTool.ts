@@ -1,122 +1,148 @@
 export const conversionTool = (singleValue: String) => {
   let result = "";
-  if (singleValue == "10") {
-    return "Ten";
-  }
-  if (singleValue == "11") {
-    return "Eleven";
-  }
-  if (singleValue == "12") {
-    return "Twelve";
-  }
-  if (singleValue == "15") {
-    return "Fifteen";
-  }
-  if (singleValue == "13") {
-    return "Thirteen";
-  }
-  if (singleValue == "18") {
-    return "Eightteen";
-  }
-  if (singleValue == "20") {
-    return "Twenty";
-  }
-  if (singleValue == "30") {
-    return "Thirty";
-  }
-  if (singleValue == "40") {
-    return "Fourty";
-  }
-  if (singleValue == "50") {
-    return "Fifty";
-  }
-  if (singleValue == "60") {
-    return "Sixty";
-  }
-  if (singleValue == "70") {
-    return "Seventy";
-  }
-  if (singleValue == "80") {
-    return "Eighty";
-  }
-  if (singleValue == "90") {
-    return "Ninety";
-  }
-
   if (singleValue.length == 1) {
     return unit(singleValue);
   }
+  if (specialCases(singleValue as string) != "") {
+    return specialCases(singleValue as string);
+  }
+
+  if (singleValue.length == 3) {
+    return hundred(singleValue as string);
+  }
+  if (singleValue.length == 4) {
+    return thousand(singleValue as string);
+  }
+
   if (singleValue.length == 2) {
-    if (singleValue.charAt(0) == "1") {
-      const ten = singleValue.charAt(1);
-      return unit(ten) + "teen";
-    }
-    if (singleValue.charAt(0) == "2") {
-      const ten = singleValue.charAt(1);
-      return "Twenty-" + unit(ten);
-    }
-    if (singleValue.charAt(0) == "3") {
-      const ten = singleValue.charAt(1);
-      return "Thirty-" + unit(ten);
-    }
-    if (singleValue.charAt(0) == "4") {
-      const ten = singleValue.charAt(1);
-      return "Fourty-" + unit(ten);
-    }
-    if (singleValue.charAt(0) == "5") {
-      const ten = singleValue.charAt(1);
-      return "Fifty-" + unit(ten);
-    }
-    if (singleValue.charAt(0) == "6") {
-      const ten = singleValue.charAt(1);
-      return "Sixty-" + unit(ten);
-    }
-    if (singleValue.charAt(0) == "7") {
-      const ten = singleValue.charAt(1);
-      return "Seventy-" + unit(ten);
-    }
-    if (singleValue.charAt(0) == "8") {
-      const ten = singleValue.charAt(1);
-      return "Eighty-" + unit(ten);
-    }
-    if (singleValue.charAt(0) == "9") {
-      const ten = singleValue.charAt(1);
-      return "Ninety-" + unit(ten);
-    }
+    return ten(singleValue as string);
   }
   return result;
+};
+const thousand = (thousand: string) => {
+  const thousandValue = thousand.charAt(0);
+  const hundredValue = hundred(thousand.slice(1, thousand.length));
+  return unit(thousandValue) + " thousand and " + hundredValue;
+};
+
+const hundred = (hundred: string) => {
+  const hundredValue = hundred.charAt(0);
+  const tenInput = hundred.charAt(1) + hundred.charAt(2);
+  if (tenInput == "00") {
+    return unit(hundredValue) + " hundred ";
+  }
+  if (hundred.charAt(1) == "0") {
+    return unit(hundredValue) + " hundred and " + unit(hundred.charAt(2));
+  }
+  let tenValue = ten(tenInput as string);
+  if (specialCases(tenInput as string) != "") {
+    tenValue = specialCases(tenInput as string);
+  }
+  return unit(hundredValue) + " hundred and " + tenValue;
+};
+
+const specialCases = (sc: string) => {
+  switch (sc) {
+    case "10":
+      return "Ten";
+    case "11":
+      return "Eleven";
+
+    case "12":
+      return "Twelve";
+
+    case "15":
+      return "Fifteen";
+
+    case "13":
+      return "Thirteen";
+    case "18":
+      return "Eightteen";
+    case "20":
+      return "Twenty";
+    case "30":
+      return "Thirty";
+    case "40":
+      return "Fourty";
+    case "50":
+      return "Fifty";
+    case "60":
+      return "Sixty";
+    case "70":
+      return "Seventy";
+    case "80":
+      return "Eighty";
+    case "90":
+      return "Ninety";
+    default:
+      return "";
+  }
+};
+
+const ten = (ten: string) => {
+  switch (ten.charAt(0)) {
+    case "1":
+      return unit(ten.charAt(1)) + "teen";
+
+    case "2":
+      return "Twenty-" + unit(ten.charAt(1));
+
+    case "3":
+      return "Thirty-" + unit(ten.charAt(1));
+
+    case "4":
+      return "Fourty-" + unit(ten.charAt(1));
+
+    case "5":
+      return "Fifty-" + unit(ten.charAt(1));
+
+    case "6":
+      return "Sixty-" + unit(ten.charAt(1));
+
+    case "7":
+      return "Seventy-" + unit(ten.charAt(1));
+
+    case "8":
+      return "Eighty-" + unit(ten.charAt(1));
+
+    case "9":
+      return "Ninety-" + unit(ten.charAt(1));
+
+    default:
+      return "Error";
+  }
 };
 
 const unit = (unit: String) => {
   switch (unit) {
     case "1":
       return "One";
-      break;
+
     case "2":
       return "Two";
-      break;
+
     case "3":
       return "Three";
-      break;
+
     case "4":
       return "Four";
-      break;
+
     case "5":
       return "Five";
-      break;
+
     case "6":
       return "Six";
-      break;
+
     case "7":
       return "Seven";
-      break;
+
     case "8":
       return "Eight";
-      break;
+
     case "9":
       return "Nine";
-      break;
+
     default:
-      "Error";
+      return "Error";
   }
 };

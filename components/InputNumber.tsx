@@ -22,7 +22,7 @@ export default function InputNumber() {
 
   const addResult = (newValue: string) => {
     const prevState = [...prevResult];
-    prevState.splice(0,0,newValue);
+    prevState.splice(0, 0, newValue);
     setPrevResult(prevState);
   };
   return (
@@ -58,11 +58,7 @@ export default function InputNumber() {
       ) : (
         ""
       )}
-      {prevResult?.length ? (
-        <PreviousConversions previousConversion={prevResult} />
-      ) : (
-        ""
-      )}
+      <PreviousConversions previousConversion={prevResult} />
     </>
   );
 }
