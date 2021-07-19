@@ -44,33 +44,33 @@ const hundred = (hundred: string) => {
 const ten = (ten: string) => {
   switch (ten) {
     case "10":
-      return "Ten";
+      return "ten";
     case "11":
-      return "Eleven";
+      return "eleven";
     case "12":
-      return "Twelve";
+      return "twelve";
     case "15":
-      return "Fifteen";
+      return "fifteen";
     case "13":
-      return "Thirteen";
+      return "thirteen";
     case "18":
-      return "Eightteen";
+      return "eighteen";
     case "20":
-      return "Twenty";
+      return "twenty";
     case "30":
-      return "Thirty";
+      return "thirty";
     case "40":
-      return "Fourty";
+      return "fourty";
     case "50":
-      return "Fifty";
+      return "fifty";
     case "60":
-      return "Sixty";
+      return "sixty";
     case "70":
-      return "Seventy";
+      return "seventy";
     case "80":
-      return "Eighty";
+      return "eighty";
     case "90":
-      return "Ninety";
+      return "ninety";
     case "00":
       return "";
   }
@@ -78,21 +78,21 @@ const ten = (ten: string) => {
     case "1":
       return unit(ten.charAt(1)) + "teen";
     case "2":
-      return "Twenty-" + unit(ten.charAt(1));
+      return "twenty-" + unit(ten.charAt(1));
     case "3":
-      return "Thirty-" + unit(ten.charAt(1));
+      return "thirty-" + unit(ten.charAt(1));
     case "4":
-      return "Fourty-" + unit(ten.charAt(1));
+      return "fourty-" + unit(ten.charAt(1));
     case "5":
-      return "Fifty-" + unit(ten.charAt(1));
+      return "fifty-" + unit(ten.charAt(1));
     case "6":
-      return "Sixty-" + unit(ten.charAt(1));
+      return "sixty-" + unit(ten.charAt(1));
     case "7":
-      return "Seventy-" + unit(ten.charAt(1));
+      return "seventy-" + unit(ten.charAt(1));
     case "8":
-      return "Eighty-" + unit(ten.charAt(1));
+      return "eighty-" + unit(ten.charAt(1));
     case "9":
-      return "Ninety-" + unit(ten.charAt(1));
+      return "ninety-" + unit(ten.charAt(1));
     case "0":
       return " and " + unit(ten.charAt(1));
   }
@@ -101,25 +101,25 @@ const ten = (ten: string) => {
 const unit = (unit: String) => {
   switch (unit) {
     case "1":
-      return "One";
+      return "one";
     case "2":
-      return "Two";
+      return "two";
     case "3":
-      return "Three";
+      return "three";
     case "4":
-      return "Four";
+      return "four";
     case "5":
-      return "Five";
+      return "five";
     case "6":
-      return "Six";
+      return "six";
     case "7":
-      return "Seven";
+      return "seven";
     case "8":
-      return "Eight";
+      return "eight";
     case "9":
-      return "Nine";
+      return "nine";
     case "0":
-      return "Zero";
+      return "zero";
     default:
       return "";
   }
