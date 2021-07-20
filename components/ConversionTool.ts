@@ -12,19 +12,46 @@ export const conversionTool = (singleValue: String) => {
   }
   if (singleValue.length == 4) {
     const houndredValue = singleValue.slice(0, 2);
-    let hundredOutput = ten(houndredValue) + " houndred ";
+    let hundredOutput = ten(houndredValue) + " hundred ";
+    let tenValue = "and " + ten(singleValue.slice(2, 4));
     if (houndredValue.charAt(1) == "0") {
       hundredOutput = unit(houndredValue.charAt(0)) + " thousand ";
     }
-    const tenValue = ten(singleValue.slice(2, 4));
+    if (singleValue.slice(2, 4) == "00") {
+      hundredOutput = unit(houndredValue.charAt(0)) + " thousand ";
+      tenValue = hundred(singleValue.slice(1, 4));
+    }
+
     return hundredOutput + tenValue;
   }
   if (singleValue.length == 5) {
     return thousand(singleValue as string);
   }
+  if (singleValue.length == 6) {
+    return hundredThousand(singleValue as string);
+  }
+
+  if (singleValue.length == 7) {
+    return millon(singleValue as string);
+  }
 
   return result;
 };
+
+const millon = (millon: string) => {
+  const millonValue = unit(millon.charAt(0)) + " million ";
+  const thousandValue = hundredThousand(millon.slice(1, 7));
+  return millonValue + thousandValue;
+};
+
+const hundredThousand = (hundredThousand: string) => {
+  const thousandValue = hundred(hundredThousand.slice(0, 3)).length
+    ? hundred(hundredThousand.slice(0, 3)) + " thousand "
+    : hundred(hundredThousand.slice(0, 3));
+  let hundredValue = hundred(hundredThousand.slice(3, 6));
+  return thousandValue  + hundredValue;
+};
+
 const thousand = (thousand: string) => {
   const thousandValue = ten(thousand.slice(0, 2));
   let hundredValue = hundred(thousand.slice(2, 5));
@@ -34,11 +61,11 @@ const thousand = (thousand: string) => {
 
 const hundred = (hundred: string) => {
   let hundredValue =
-    unit(hundred.charAt(0)) === "Zero"
+    unit(hundred.charAt(0)) === "zero"
       ? ""
       : unit(hundred.charAt(0)) + " hundred ";
   let tenValue = ten(hundred.slice(1, hundred.length));
-  return hundredValue + (tenValue?.length ? "" + tenValue : "");
+  return hundredValue + (tenValue?.length ? "and " + tenValue : "");
 };
 
 const ten = (ten: string) => {
@@ -60,7 +87,7 @@ const ten = (ten: string) => {
     case "30":
       return "thirty";
     case "40":
-      return "fourty";
+      return "forty";
     case "50":
       return "fifty";
     case "60":
@@ -82,7 +109,7 @@ const ten = (ten: string) => {
     case "3":
       return "thirty-" + unit(ten.charAt(1));
     case "4":
-      return "fourty-" + unit(ten.charAt(1));
+      return "forty-" + unit(ten.charAt(1));
     case "5":
       return "fifty-" + unit(ten.charAt(1));
     case "6":
@@ -94,7 +121,7 @@ const ten = (ten: string) => {
     case "9":
       return "ninety-" + unit(ten.charAt(1));
     case "0":
-      return " and " + unit(ten.charAt(1));
+      return unit(ten.charAt(1));
   }
 };
 
