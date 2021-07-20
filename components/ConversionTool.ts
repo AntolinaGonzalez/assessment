@@ -1,46 +1,37 @@
 export const conversionTool = (singleValue: String) => {
   let result = "";
 
-  if (singleValue.length == 1) {
-    return unit(singleValue);
-  }
-  if (singleValue.length == 2) {
-    return ten(singleValue as string);
-  }
-  if (singleValue.length == 3) {
-    return hundred(singleValue as string);
-  }
-  if (singleValue.length == 4) {
-    const houndredValue = singleValue.slice(0, 2);
-    let hundredOutput = ten(houndredValue) + " hundred ";
-    let tenValue = "and " + ten(singleValue.slice(2, 4));
-    if (houndredValue.charAt(1) == "0") {
-      hundredOutput = unit(houndredValue.charAt(0)) + " thousand ";
-    }
-    if (singleValue.slice(2, 4) == "00") {
-      hundredOutput = unit(houndredValue.charAt(0)) + " thousand ";
-      tenValue = hundred(singleValue.slice(1, 4));
-    }
-
-    return hundredOutput + tenValue;
-  }
-  if (singleValue.length == 5) {
-    return thousand(singleValue as string);
-  }
-  if (singleValue.length == 6) {
-    return hundredThousand(singleValue as string);
-  }
-
-  if (singleValue.length >= 7 && singleValue.length <= 9) {
-    return millon(singleValue as string);
-  }
-
-  if (singleValue.length >= 10 && singleValue.length <= 12) {
-    return billon(singleValue as string);
-  }
-
-  if (singleValue.length >= 13 && singleValue.length <= 15) {
-    return trillon(singleValue as string);
+  switch (true) {
+    case singleValue.length == 1:
+      return unit(singleValue);
+    case singleValue.length == 2:
+      return ten(singleValue as string);
+    case singleValue.length == 3:
+      return hundred(singleValue as string);
+    case singleValue.length == 4:
+      const houndredValue = singleValue.slice(0, 2);
+      let hundredOutput = ten(houndredValue) + " hundred ";
+      let tenValue = "and " + ten(singleValue.slice(2, 4));
+      if (houndredValue.charAt(1) == "0") {
+        hundredOutput = unit(houndredValue.charAt(0)) + " thousand ";
+      }
+      if (singleValue.slice(2, 4) == "00") {
+        hundredOutput = unit(houndredValue.charAt(0)) + " thousand ";
+        tenValue = hundred(singleValue.slice(1, 4));
+      }
+      return hundredOutput + tenValue;
+    case singleValue.length == 5:
+      return thousand(singleValue as string);
+    case singleValue.length == 6:
+      return hundredThousand(singleValue as string);
+    case singleValue.length >= 7 && singleValue.length <= 9:
+      return millon(singleValue as string);
+    case singleValue.length >= 10 && singleValue.length <= 12:
+      return billon(singleValue as string);
+    case singleValue.length >= 13 && singleValue.length <= 15:
+      return trillon(singleValue as string);
+    default:
+      return "Error"
   }
 
   return result;
