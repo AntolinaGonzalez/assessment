@@ -18,7 +18,7 @@ export default function InputNumber() {
       return setError(true);
     }
     const isNumber = Number(singleValue);
-    if (!isNaN(isNumber)) {
+    if (!isNaN(isNumber) && isNumber>=0) {
       setError(false);
       const result = conversionTool(singleValue);
       setNumberInputValue(result as string);
