@@ -31,16 +31,82 @@ export const conversionTool = (singleValue: String) => {
     return hundredThousand(singleValue as string);
   }
 
-  if (singleValue.length == 7) {
+  if (singleValue.length >= 7 && singleValue.length <= 9) {
     return millon(singleValue as string);
+  }
+
+  if (singleValue.length >= 10 && singleValue.length <= 12) {
+    return billon(singleValue as string);
+  }
+
+  if (singleValue.length >= 13 && singleValue.length <= 15) {
+    return trillon(singleValue as string);
   }
 
   return result;
 };
 
+const trillon = (trillon: string) => {
+  let trillonValue = "";
+  let billonValue = "";
+  switch (trillon.length) {
+    case 13:
+      trillonValue = unit(trillon.charAt(0)) + " trillion ";
+      billonValue = billon(trillon.slice(1, 13));
+      break;
+    case 14:
+      trillonValue = ten(trillon.slice(0, 2)) + " trillion ";
+      billonValue = billon(trillon.slice(2, 14));
+      break;
+    case 15:
+      trillonValue = hundred(trillon.slice(0, 3)) + " trillion ";
+      billonValue = billon(trillon.slice(3, 15));
+      break;
+  }
+  return trillonValue + billonValue;
+};
+
+const billon = (billon: string) => {
+  let billonValue = "";
+  let millonValue = "";
+  switch (billon.length) {
+    case 10:
+      billonValue = unit(billon.charAt(0)) + " billion ";
+      millonValue = millon(billon.slice(1, 10));
+      break;
+    case 11:
+      billonValue = ten(billon.slice(0, 2)) + " billion ";
+      millonValue = millon(billon.slice(2, 11));
+      break;
+    case 12:
+      billonValue = hundred(billon.slice(0, 3))
+        ? hundred(billon.slice(0, 3)) + " billion "
+        : "";
+      millonValue = millon(billon.slice(3, 12));
+      break;
+  }
+  return billonValue + millonValue;
+};
+
 const millon = (millon: string) => {
-  const millonValue = unit(millon.charAt(0)) + " million ";
-  const thousandValue = hundredThousand(millon.slice(1, 7));
+  let millonValue = "";
+  let thousandValue = "";
+  switch (millon.length) {
+    case 7:
+      millonValue = unit(millon.charAt(0)) + " million ";
+      thousandValue = hundredThousand(millon.slice(1, 7));
+      break;
+    case 8:
+      millonValue = ten(millon.slice(0, 2)) + " million ";
+      thousandValue = hundredThousand(millon.slice(2, 8));
+      break;
+    case 9:
+      millonValue = hundred(millon.slice(0, 3))
+        ? hundred(millon.slice(0, 3)) + " million "
+        : "";
+      thousandValue = hundredThousand(millon.slice(3, 9));
+      break;
+  }
   return millonValue + thousandValue;
 };
 
@@ -49,7 +115,7 @@ const hundredThousand = (hundredThousand: string) => {
     ? hundred(hundredThousand.slice(0, 3)) + " thousand "
     : hundred(hundredThousand.slice(0, 3));
   let hundredValue = hundred(hundredThousand.slice(3, 6));
-  return thousandValue  + hundredValue;
+  return thousandValue + hundredValue;
 };
 
 const thousand = (thousand: string) => {
