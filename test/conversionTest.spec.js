@@ -38,6 +38,7 @@ describe("the conversion tool test", () => {
     expect(conversionTool("45157888500200")).to.equal("forty-five trillion one hundred and fifty-seven billion eight hundred and eighty-eight million five hundred  thousand two hundred ");
     expect(conversionTool("500222")).to.equal("five hundred  thousand two hundred and twenty-two");
     expect(conversionTool("450000000850005")).to.equal("four hundred and fifty trillion eight hundred and fifty thousand and five");
-    expect(conversionTool("999999999999500")).to.equal("nine hundred and ninety-nine trillion nine hundred and ninety-nine billion nine hundred and ninety-nine million nine hundred and ninety-nine thousand five hundred ");
+    expect(conversionTool("1000000000000000")).to.equal("one quadrillion ");
+    expect(conversionTool("1000000000000005")).to.equal("one quadrillion and five");
   });
 });

@@ -30,11 +30,34 @@ export const conversionTool = (singleValue: String) => {
       return billon(singleValue as string);
     case singleValue.length >= 13 && singleValue.length <= 15:
       return trillon(singleValue as string);
+    case singleValue.length >= 16 && singleValue.length <= 18:
+      return quadrillon(singleValue as string);
     default:
-      return "Error"
+      return "Error";
   }
 
   return result;
+};
+const quadrillon = (quadrillon: string) => {
+  let quadrillonValue = "";
+  let trillonValue = "";
+  switch (quadrillon.length) {
+    case 16:
+      quadrillonValue = unit(quadrillon.charAt(0)) + " quadrillion ";
+      trillonValue = trillon(quadrillon.slice(1, 16));
+      break;
+    case 17:
+      quadrillonValue = ten(quadrillon.slice(0, 2)) + " quadrillion ";
+      trillonValue = trillon(quadrillon.slice(2, 17));
+      break;
+    case 18:
+      quadrillonValue = hundred(quadrillon.slice(0, 3))
+        ? hundred(quadrillon.slice(0, 3)) + " quadrillion "
+        : "";
+      trillonValue = billon(quadrillon.slice(3, 18));
+      break;
+  }
+  return quadrillonValue + trillonValue;
 };
 
 const trillon = (trillon: string) => {
@@ -50,7 +73,9 @@ const trillon = (trillon: string) => {
       billonValue = billon(trillon.slice(2, 14));
       break;
     case 15:
-      trillonValue = hundred(trillon.slice(0, 3)) + " trillion ";
+      trillonValue = hundred(trillon.slice(0, 3))
+        ? hundred(trillon.slice(0, 3)) + " trillion "
+        : "";
       billonValue = billon(trillon.slice(3, 15));
       break;
   }
