@@ -1,6 +1,4 @@
 export const conversionTool = (singleValue: String) => {
-  let result = "";
-
   switch (true) {
     case singleValue.length == 1:
       return unit(singleValue);
@@ -35,8 +33,6 @@ export const conversionTool = (singleValue: String) => {
     default:
       return "Error";
   }
-
-  return result;
 };
 const quadrillon = (quadrillon: string) => {
   let quadrillonValue = "";

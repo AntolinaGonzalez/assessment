@@ -23,7 +23,7 @@ export default function Home() {
             width={100}
             height={100}
           />
-          <Box marginLeft={isMobile ? 1 : 10}>
+          <Box marginLeft={isMobile ? 1 : 12}>
             {isMobile ? (
               <Typography variant="h6">
                 Arabic number conversion tool
@@ -37,7 +37,6 @@ export default function Home() {
         </Box>
         <Box p={3}>
           <InputNumber/>
-          
         </Box>
       </Container>
       <Box
