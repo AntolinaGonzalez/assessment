@@ -35,7 +35,7 @@ export default function Home() {
             )}
           </Box>
         </Box>
-        <Box p={3}>
+        <Box p={2}>
           <InputNumber/>
         </Box>
       </Container>
