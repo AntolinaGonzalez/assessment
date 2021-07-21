@@ -35,7 +35,7 @@ export default function Home() {
             )}
           </Box>
         </Box>
-        <Box p={2}>
+        <Box display="flex" flexDirection="column" alignItems="center">
           <InputNumber/>
         </Box>
       </Container>
@@ -44,8 +44,7 @@ export default function Home() {
           textAlign: "center",
           bottom: 0,
           position: "absolute",
-          width: "100%",
-          height: "5%",
+          width: "100%"
         }}
       >
         <Typography>Antolina Gonzalez - 2021</Typography>

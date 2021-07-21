@@ -23,7 +23,7 @@ const PreviousConversions: React.FC<Props> = ({ previousConversion }) => {
     <>
       {Object.keys(storedConversions).length ? (
         <>
-          <Box p={2}>
+          <Box p={1}>
             <Typography variant="subtitle1">Previous conversions</Typography>
           </Box>
           <Box
