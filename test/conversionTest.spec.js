@@ -56,7 +56,7 @@ describe("the conversion tool test", () => {
     expect(conversionTool("177000555221")).to.equal(
       "one hundred and seventy-seven billion five hundred and fifty-five thousand two hundred and twenty-one"
     );
-    expect(conversionTool("10000000000")).to.equal("ten billion  ");
+    expect(conversionTool("10000000000")).to.equal("ten billion ");
     expect(conversionTool("1000000000000")).to.equal("one trillion ");
     expect(conversionTool("1000000000001")).to.equal("one trillion and one");
     expect(conversionTool("1500100000001")).to.equal(
