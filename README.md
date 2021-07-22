@@ -24,3 +24,23 @@ Treat this task like a project to create a real-life application, focus on other
 - Don't forget to write tests.
 
 Thank you for your time and happy coding! 🧑‍💻
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+**Stack:**
+
+NextJS -  React Framework
+
+MaterialUI 
+
+Jest - Dai  for testing
+
+Trello: https://trello.com/b/twgguPRx/dina-challenge 
+
+I used local storage to save previous conversions. Also, I added pre-push to git hooks to run tests before push
+
+
+
+I hope you like it! I enjoyed doing it
