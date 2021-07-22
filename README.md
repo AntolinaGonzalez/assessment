@@ -41,6 +41,6 @@ Trello: https://trello.com/b/twgguPRx/dina-challenge
 
 I used local storage to save previous conversions. Also, I added pre-push to git hooks to run tests before push
 
-
+link: https://assessment-zeta.vercel.app/ 
 
 I hope you like it! I enjoyed doing it
