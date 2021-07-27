@@ -4,9 +4,13 @@ import { Box, Container, Typography, Button } from "@material-ui/core";
 import React from "react";
 import useMobile from "../hooks/useMobile";
 import InputNumber from "../components/InputNumber";
+import { users } from "../hooks/users";
+import Loader from "../components/Loader";
+import UserList from "../components/UserList";
 
 export default function Home() {
   const isMobile = useMobile();
+  const { usersInfo, loader } = users();
   const firstAssessment = false;
   return (
     <>
@@ -55,11 +59,11 @@ export default function Home() {
                 <Typography variant="h3">User List</Typography>
               </Box>
             </Box>
-            
+            {loader ? <Loader /> : <UserList userData={usersInfo} />}
           </>
         )}
       </Container>
-      <Box
+      {/* <Box
         style={{
           textAlign: "center",
           bottom: 0,
@@ -68,7 +72,7 @@ export default function Home() {
         }}
       >
         <Typography>Antolina Gonzalez - 2021</Typography>
-      </Box>
+      </Box> */}
     </>
   );
 }
