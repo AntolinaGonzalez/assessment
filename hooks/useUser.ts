@@ -24,10 +24,10 @@ export const useUser = (initialData: User) => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      mutate(`http://js-assessment-backend.herokuapp.com/users`);
     } catch (e) {
       console.log(e);
     }
+    mutate(`http://js-assessment-backend.herokuapp.com/users`);
   }, [initialData]);
   return {
     onStatusChange,
