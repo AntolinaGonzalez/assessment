@@ -10,10 +10,10 @@ import UserList from "../components/UserList";
 
 export default function Home() {
   const isMobile = useMobile();
-  const { usersInfo,loader } = users();
+  const { usersInfo, loader } = users();
   const firstAssessment = false;
   return (
-    <Box style={{backgroundColor: '#aaa1a0'}}>
+    <Box style={{ backgroundColor: "#aaa1a0" }}>
       <Container>
         <Head>
           <title>Dina Challenge</title>
@@ -59,8 +59,9 @@ export default function Home() {
                 <Typography variant="h3">User List</Typography>
               </Box>
             </Box>
-            <Box display='flex' justifyContent='center'>
-            {loader ? <Loader /> : <UserList userData={usersInfo} />}
+            <Box display="flex" justifyContent="center">
+              
+              {loader ? <Loader /> : <UserList userList={usersInfo} />}
             </Box>
           </>
         )}

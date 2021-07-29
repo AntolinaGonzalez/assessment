@@ -1,9 +1,45 @@
-import * as React from "react";
-import { DataGrid } from "@material-ui/data-grid";
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableRow from "@material-ui/core/TableRow";
+import UserInfo from "./UserInfo";
 
+const columns = [
+  { id: "id", label: "ID", minWidth: 100 },
+  {
+    id: "created_at",
+    label: "Created",
+    minWidth: 150,
+  },
+  {
+    id: "updated_at",
+    label: "Updated",
+    minWidth: 150,
+  },
+  {
+    id: "first_name",
+    label: "First name",
+    minWidth: 150,
+  },
+  {
+    id: "last_name",
+    label: "Last name",
+    minWidth: 150,
+  },
+  {
+    id: "status",
+    label: "Status",
+    minWidth: 120,
+  },
+];
 interface User {
-  id: number;
+  id: any;
   first_name: string;
   last_name: string;
   status: "active" | "locked";
@@ -11,77 +47,72 @@ interface User {
   updated_at: Date;
 }
 interface Props {
-  userData: Array<User>;
+  userList: Array<User>;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      height: 650,
-      width: "80%",
-      backgroundColor: "white",
-      borderRadius: "10px",
-      "& .MuiDataGrid-root  .MuiDataGrid-iconSeparator": {
-        color: "black",
-      },
-    },
-    centerLoader: {
-      top: "40%",
-      left: "50%",
-      position: "absolute",
-    },
-  })
-);
+const useStyles = makeStyles({
+  root: {
+    width: "100%",
+  },
+  container: {
+    maxHeight: 440,
+  },
+});
 
-const UserList: React.FC<Props> = ({ userData }) => {
+const UserList: React.FC<Props> = ({ userList }) => {
   const classes = useStyles();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (
+    event: any,
+    newPage: React.SetStateAction<number>
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: {
+    target: { value: string | number };
+  }) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
   return (
-    <div className={classes.root}>
-      <DataGrid
-        rows={userData}
-        columns={columns}
-        pageSize={10}
-        checkboxSelection
-        disableSelectionOnClick
-        style={{ borderRadius: "10px" }}
+    <Paper className={classes.root}>
+      <TableContainer className={classes.container}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell
+                  key={column.id}
+                  style={{ minWidth: column.minWidth }}
+                >
+                  {column.label}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {userList
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row) => {
+                return <UserInfo userData={row} />;
+              })}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={userList.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
-    </div>
+    </Paper>
   );
 };
 export default UserList;
-
-const columns = [
-  { field: "id", headerName: "ID", width: 100 },
-  {
-    field: "created_at",
-    headerName: "Created",
-    type: "date",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "updated_at",
-    headerName: "Updated",
-    type: "date",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "first_name",
-    headerName: "First name",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "last_name",
-    headerName: "Last name",
-    width: 150,
-    editable: true,
-  },
-  {
-    field: "status",
-    headerName: "Status",
-    width: 120,
-    editable: true,
-  },
-];
