@@ -29,7 +29,29 @@ export const useUser = (initialData: User) => {
     }
     mutate(`http://js-assessment-backend.herokuapp.com/users`);
   }, [initialData]);
+
+  const onSubmitNewUser = useCallback(async () => {
+    console.log("initialData ", initialData);
+   
+    if (initialData || !initialData) {
+      try {
+        const result = await axios.post(
+          `http://js-assessment-backend.herokuapp.com/users`,
+          initialData,
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        console.log('result ', result)
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    mutate(`http://js-assessment-backend.herokuapp.com/users`);
+  }, [initialData]);
   return {
     onStatusChange,
+    onSubmitNewUser,
   };
 };
