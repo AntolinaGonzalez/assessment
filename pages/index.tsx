@@ -13,7 +13,7 @@ export default function Home() {
   const { usersInfo, loader } = users();
   const firstAssessment = false;
   return (
-    <Box style={{ backgroundColor: "#aaa1a0", borderBottom: 'dashed' }}>
+    <Box style={{ backgroundColor: "#efdee6", borderBottom: 'dashed' }}>
       <Container>
         <Head>
           <title>Dina Challenge</title>
@@ -56,10 +56,10 @@ export default function Home() {
                 height={100}
               />
               <Box marginLeft={isMobile ? 1 : 12}>
-                <Typography variant="h3">User List</Typography>
+                <Typography variant="h3" style={{fontStyle : 'italic'}}>User's List</Typography>
               </Box>
             </Box>
-            <Box display="flex" justifyContent="flex-end" mb={1}>
+            <Box display="flex" justifyContent="flex-end" pb={1} style={{borderBottom:'dashed'}}>
               <Button variant="contained" color="secondary" href="./new">
                 Create user
               </Button>

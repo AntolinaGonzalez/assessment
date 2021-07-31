@@ -53,7 +53,7 @@ interface Props {
 const useStyles = makeStyles({
   root: {
     width: "100%",
-    marginBottom: '20px'
+    marginBottom: "20px",
   },
   userLocked: {
     textDecoration: "line-through",
@@ -88,27 +88,37 @@ const UserList: React.FC<Props> = ({ userList }) => {
               {columns.map((column) => (
                 <TableCell
                   key={column.id}
-                  style={{ minWidth: column.minWidth }}
+                  style={{
+                    minWidth: column.minWidth,
+                    fontWeight: "bolder",
+                    backgroundColor: "#f2f2f2",
+                  }}
                 >
                   {column.label}
                 </TableCell>
               ))}
-              <TableCell></TableCell>
+              <TableCell
+                style={{
+                  backgroundColor: "#f2f2f2",
+                }}
+              ></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {userList
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                return <TableRow
-                hover
-                role="checkbox"
-                tabIndex={-1}
-                key={row.id}
-                className={row.status == "locked" ? classes.userLocked : ""}
-              >
-                <UserInfo userData={row}/>
-              </TableRow>;
+                return (
+                  <TableRow
+                    hover
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row.id}
+                    className={row.status == "locked" ? classes.userLocked : ""}
+                  >
+                    <UserInfo userData={row} />
+                  </TableRow>
+                );
               })}
           </TableBody>
         </Table>

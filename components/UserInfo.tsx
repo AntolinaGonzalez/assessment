@@ -29,34 +29,38 @@ const UserInfo: React.FC<Props> = ({ userData }) => {
     localStorage.setItem("userToEdit", JSON.stringify(userData));
     router.push("./edit");
   };
-
   return (
     <>
-        <TableCell>{userData.id}</TableCell>
-        <TableCell>{userData.created_at}</TableCell>
-        <TableCell>{userData.updated_at}</TableCell>
-        <TableCell>{userData.first_name}</TableCell>
-        <TableCell>{userData.last_name}</TableCell>
-        <TableCell>
-          <IconButton onClick={onStatusChange}>
-            {loader ? (
-              <StatusLoader />
-            ) : userData.status == "locked" ? (
-              <CancelIcon />
-            ) : (
-              <CheckCircleIcon
-                onClick={() => {
-                  onStatusChange();
-                }}
-              />
-            )}
-          </IconButton>
-        </TableCell>
-        <TableCell>
-          <IconButton onClick={handleClick}>
-            <EditIcon />
-          </IconButton>
-        </TableCell>
+      <TableCell>{userData.id}</TableCell>
+      <TableCell>
+        {userData.created_at?.toString().replace(/T.*/, "")}
+      </TableCell>
+      <TableCell>
+        {userData.updated_at?.toString().replace(/T.*/, "")}
+      </TableCell>
+      <TableCell>{userData.first_name}</TableCell>
+      <TableCell>{userData.last_name}</TableCell>
+      <TableCell>
+        <IconButton onClick={onStatusChange}>
+          {loader ? (
+            <StatusLoader />
+          ) : userData.status == "locked" ? (
+            <CancelIcon style={{color:'red'}} />
+          ) : (
+            <CheckCircleIcon
+              onClick={() => {
+                onStatusChange();
+              }}
+              style={{color:'green'}}
+            />
+          )}
+        </IconButton>
+      </TableCell>
+      <TableCell>
+        <IconButton onClick={handleClick}>
+          <EditIcon color="secondary" />
+        </IconButton>
+      </TableCell>
       {snackbar ? (
         <SimpleSnackbar
           openSnackbar={snackbar}
