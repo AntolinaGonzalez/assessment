@@ -13,7 +13,7 @@ export default function Home() {
   const { usersInfo, loader } = users();
   const firstAssessment = false;
   return (
-    <Box style={{ backgroundColor: "#aaa1a0" }}>
+    <Box style={{ backgroundColor: "#aaa1a0", borderBottom: 'dashed' }}>
       <Container>
         <Head>
           <title>Dina Challenge</title>
@@ -59,23 +59,17 @@ export default function Home() {
                 <Typography variant="h3">User List</Typography>
               </Box>
             </Box>
+            <Box display="flex" justifyContent="flex-end" mb={1}>
+              <Button variant="contained" color="secondary" href="./new">
+                Create user
+              </Button>
+            </Box>
             <Box display="flex" justifyContent="center">
-              
               {loader ? <Loader /> : <UserList userList={usersInfo} />}
             </Box>
           </>
         )}
       </Container>
-      {/* <Box
-        style={{
-          textAlign: "center",
-          bottom: 0,
-          position: "absolute",
-          width: "100%",
-        }}
-      >
-        <Typography>Antolina Gonzalez - 2021</Typography>
-      </Box> */}
     </Box>
   );
 }

@@ -53,9 +53,10 @@ interface Props {
 const useStyles = makeStyles({
   root: {
     width: "100%",
+    marginBottom: '20px'
   },
-  container: {
-    maxHeight: 440,
+  userLocked: {
+    textDecoration: "line-through",
   },
 });
 
@@ -80,7 +81,7 @@ const UserList: React.FC<Props> = ({ userList }) => {
 
   return (
     <Paper className={classes.root}>
-      <TableContainer className={classes.container}>
+      <TableContainer>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
@@ -99,9 +100,15 @@ const UserList: React.FC<Props> = ({ userList }) => {
             {userList
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                return (
-                    <UserInfo userData={row}/>
-                );
+                return <TableRow
+                hover
+                role="checkbox"
+                tabIndex={-1}
+                key={row.id}
+                className={row.status == "locked" ? classes.userLocked : ""}
+              >
+                <UserInfo userData={row}/>
+              </TableRow>;
               })}
           </TableBody>
         </Table>

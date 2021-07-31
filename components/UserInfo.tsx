@@ -32,13 +32,6 @@ const UserInfo: React.FC<Props> = ({ userData }) => {
 
   return (
     <>
-      <TableRow
-        hover
-        role="checkbox"
-        tabIndex={-1}
-        key={userData.id}
-        className={userData.status == "locked" ? classes.userLocked : ""}
-      >
         <TableCell>{userData.id}</TableCell>
         <TableCell>{userData.created_at}</TableCell>
         <TableCell>{userData.updated_at}</TableCell>
@@ -64,7 +57,6 @@ const UserInfo: React.FC<Props> = ({ userData }) => {
             <EditIcon />
           </IconButton>
         </TableCell>
-      </TableRow>
       {snackbar ? (
         <SimpleSnackbar
           openSnackbar={snackbar}
