@@ -1,15 +1,13 @@
 import React from "react";
 import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
-import CancelIcon from "@material-ui/icons/Cancel";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import { IconButton, makeStyles } from "@material-ui/core";
+import { Chip, IconButton, makeStyles } from "@material-ui/core";
 import { useUser } from "../hooks/useUser";
 import { User } from "../model/user";
 import EditIcon from "@material-ui/icons/Edit";
 import { useRouter } from "next/router";
 import SimpleSnackbar from "./SimpleSnackBar";
 import StatusLoader from "./StatusLoader";
+import DoneIcon from "@material-ui/icons/Done";
 
 interface Props {
   userData: User;
@@ -21,7 +19,6 @@ const useStyles = makeStyles({
 });
 
 const UserInfo: React.FC<Props> = ({ userData }) => {
-  const classes = useStyles();
   const router = useRouter();
   const { onStatusChange, snackbar, loader } = useUser(userData);
   const handleClick = (e: { preventDefault: () => void }) => {
@@ -41,20 +38,25 @@ const UserInfo: React.FC<Props> = ({ userData }) => {
       <TableCell>{userData.first_name}</TableCell>
       <TableCell>{userData.last_name}</TableCell>
       <TableCell>
-        <IconButton onClick={onStatusChange}>
-          {loader ? (
-            <StatusLoader />
-          ) : userData.status == "locked" ? (
-            <CancelIcon style={{color:'red'}} />
-          ) : (
-            <CheckCircleIcon
-              onClick={() => {
-                onStatusChange();
-              }}
-              style={{color:'green'}}
-            />
-          )}
-        </IconButton>
+        {loader ? (
+          <StatusLoader />
+        ) : userData.status == "locked" ? (
+          <Chip
+            onDelete={onStatusChange}
+            label="Locked"
+            color="secondary"
+            clickable
+            onClick={onStatusChange}
+          />
+        ) : (
+          <Chip
+            //onClick={onStatusChange}
+            onDelete={onStatusChange}
+            deleteIcon={<DoneIcon style={{ color: "white" }} />}
+            style={{ backgroundColor: "green", color: "white" }}
+            label="Active"
+          />
+        )}
       </TableCell>
       <TableCell>
         <IconButton onClick={handleClick}>

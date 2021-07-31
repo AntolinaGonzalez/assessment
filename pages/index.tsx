@@ -12,6 +12,12 @@ export default function Home() {
   const isMobile = useMobile();
   const { usersInfo, loader } = users();
   const firstAssessment = false;
+  usersInfo?.sort(function (a: any, b: any) {
+    const dateOne = new Date(b.updated_at) as any
+    const dateTwo = new Date(a.updated_at) as any
+    return dateOne - dateTwo
+  });
+
   return (
     <Box style={{ backgroundColor: "#efdee6", borderBottom: "dashed" }}>
       <Container>

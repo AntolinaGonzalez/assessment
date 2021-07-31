@@ -35,8 +35,7 @@ export const useUser = (initialData: User) => {
   };
 
   const onSubmitNewUser = async () => {
-    console.log("initialData nuevooo", initialData);
-
+  
     if (initialData || !initialData) {
       try {
         const result = await axios.post(
@@ -60,11 +59,10 @@ export const useUser = (initialData: User) => {
   };
 
   const editUser = useCallback(async () => {
-    console.log("por editaar");
     if (initialData || !initialData) {
       try {
         const result = await axios.put(
-          `http://js-assessment-backend.herokuapp.com/userss/` + initialData.id,
+          `https://js-assessment-backend.herokuapp.com/users/` + initialData.id,
           {
             first_name: initialData.first_name,
             last_name: initialData.last_name,
@@ -78,7 +76,7 @@ export const useUser = (initialData: User) => {
       }
     }
 
-    //mutate(`http://js-assessment-backend.herokuapp.com/users`);
+    mutate(`https://js-assessment-backend.herokuapp.com/users`);
   }, [initialData]);
   return {
     onStatusChange,
