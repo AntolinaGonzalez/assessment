@@ -7,16 +7,16 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: "flex",
       "& > * + *": {
-        marginLeft: theme.spacing(2)
+        marginLeft: theme.spacing(2),
       },
       justifyContent: "center",
-      height: '100vh'
+      height: "100vh",
     },
-    centerLoader:{
-        top:'40%',
-        left:'50%',
-        position: 'absolute',
-    }
+    centerLoader: {
+      top: "40%",
+      left: "50%",
+      position: "absolute",
+    },
   })
 );
 
@@ -25,7 +25,11 @@ export default function Loader() {
 
   return (
     <div className={classes.root}>
-      <CircularProgress color="secondary" size={90}  className={classes.centerLoader} />
+      <CircularProgress
+        color="secondary"
+        size={90}
+        className={classes.centerLoader}
+      />
     </div>
   );
 }

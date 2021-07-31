@@ -1,8 +1,8 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Button } from "@material-ui/core";
-import {  useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useUser } from "../hooks/useUser";
 import { User } from "../model/user";
 
@@ -23,25 +23,21 @@ const useStyles = makeStyles((theme) => ({
 const UserForm: React.FC<Props> = ({ initialData, isNew }) => {
   const classes = useStyles();
   const [user, setUser] = useState(initialData);
-  const { handleSubmit, control } = useForm();
-  const { onSubmitNewUser, editUser} = useUser(user);
+  const { onSubmitNewUser, editUser } = useUser(user);
   console.log("el user ", user);
-  const onHandleSubmit = (e: { preventDefault: () => void; }) => {
-    e.preventDefault()
-    if (isNew){
+  const onHandleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    if (isNew) {
       onSubmitNewUser();
-    }else{
-      editUser()
+    } else {
+      editUser();
     }
-    
   };
 
-  const fieldChange = (e: { target: { id: any; value: any; }; }) => {
+  const fieldChange = (e: { target: { id: any; value: any } }) => {
     const id = e.target.id;
-    console.log("el id", id);
     const value = e.target.value;
-    console.log("el vaue", value);
-    setUser({...user, [id]:value});
+    setUser({ ...user, [id]: value });
   };
 
   return (
@@ -59,14 +55,17 @@ const UserForm: React.FC<Props> = ({ initialData, isNew }) => {
           alignItems="center"
         >
           <TextField
+            required
             id="first_name"
             label="First Name"
             variant="outlined"
             value={user ? user.first_name : ""}
             onChange={fieldChange}
-            //error={!!error}
-            defaultValue="hola"
-            //helperText={error ? error.message : null}
+            error={user ? !user.first_name : false}
+            helperText={
+              user ? (!user.first_name ? "First Name is required" : null) : ""
+            }
+            style={{ width: "400px" }}
           />
 
           <TextField
@@ -74,10 +73,14 @@ const UserForm: React.FC<Props> = ({ initialData, isNew }) => {
             name="first_name"
             label="Last Name"
             variant="outlined"
-            value={user? user.last_name : ""}
+            value={user ? user.last_name : ""}
             onChange={fieldChange}
-            //error={!!error}
-            //helperText={error ? error.message : null}
+            fullWidth
+            style={{ width: "400px" }}
+            error={user ? !user.last_name : false}
+            helperText={
+              user ? (!user.last_name ? "Last Name is required" : null) : ""
+            }
           />
 
           <Button variant="contained" color="secondary" type="submit">

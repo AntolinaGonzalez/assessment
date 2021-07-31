@@ -22,17 +22,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const NewUserForm: React.FC<Props> = ({ initialData }) => {
-  const classes = useStyles();
-  const isMobile = useMobile();
 
   return (
-    <Box
-      style={{
-        backgroundColor: "#efdee6",
-        borderBottom: "dashed",
-        height: "100%",
-      }}
-    >
+    <Box>
       <Container>
         <Head>
           <title>Dina Challenge</title>
@@ -46,14 +38,21 @@ const NewUserForm: React.FC<Props> = ({ initialData }) => {
             width={100}
             height={100}
           />
-          <Box marginLeft={isMobile ? 1 : 12}>
-            <Typography variant="h3" style={{ fontStyle: "italic" }}>
-              New user 
-            </Typography>
-          </Box>
         </Box>
-        <Box p={5}>
-          <UserForm initialData={initialData} isNew={true} />
+        <Box>
+          <Box
+            display="flex"
+            justifyContent="space-around"
+            top="40%"
+            margin={0}
+            position="absolute"
+            
+          >
+            <Box display="flex" justifyContent="center">
+              <Typography variant="h3">New user</Typography>
+            </Box>
+            <UserForm initialData={initialData} isNew={true} />
+          </Box>
         </Box>
       </Container>
     </Box>

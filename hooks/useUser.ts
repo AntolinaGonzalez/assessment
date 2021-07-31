@@ -16,7 +16,7 @@ export const useUser = (initialData: User) => {
     setLoader(true);
     try {
       await axios.put(
-        `http://js-assessment-backend.herokuapp.com/users/` + initialData.id,
+        `https://js-assessment-backend.herokuapp.com/users/` + initialData.id,
         {
           status: status,
         },
@@ -28,20 +28,24 @@ export const useUser = (initialData: User) => {
         }
       );
     } catch (e) {}
-    mutate(`http://js-assessment-backend.herokuapp.com/users`);
+    mutate(`https://js-assessment-backend.herokuapp.com/users`);
     await delay(3000);
     setLoader(false);
     setSnackbar(true);
   };
 
-  const onSubmitNewUser = useCallback(async () => {
-    console.log("initialData ", initialData);
+  const onSubmitNewUser = async () => {
+    console.log("initialData nuevooo", initialData);
 
     if (initialData || !initialData) {
       try {
         const result = await axios.post(
-          `http://js-assessment-backend.herokuapp.com/users`,
-          initialData,
+          `https://js-assessment-backend.herokuapp.com/users`,
+          {
+            first_name: initialData.first_name,
+            last_name: initialData.last_name,
+            status: "active",
+          },
           {
             headers: { "Content-Type": "application/json" },
           }
@@ -51,15 +55,16 @@ export const useUser = (initialData: User) => {
         console.log(e);
       }
     }
-
-    mutate(`http://js-assessment-backend.herokuapp.com/users`);
-  }, [initialData]);
+    console.log("saliendo de ahi");
+    mutate(`https://js-assessment-backend.herokuapp.com/users`);
+  };
 
   const editUser = useCallback(async () => {
+    console.log("por editaar");
     if (initialData || !initialData) {
       try {
         const result = await axios.put(
-          `http://js-assessment-backend.herokuapp.com/users/` + initialData.id,
+          `http://js-assessment-backend.herokuapp.com/userss/` + initialData.id,
           {
             first_name: initialData.first_name,
             last_name: initialData.last_name,
