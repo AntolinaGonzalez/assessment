@@ -6,6 +6,9 @@ import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import { IconButton, makeStyles } from "@material-ui/core";
 import { useUser } from "../hooks/useUser";
 import { User } from "../model/user";
+import EditIcon from "@material-ui/icons/Edit";
+import { useRouter } from 'next/router'
+
 
 interface Props {
   userData: User;
@@ -18,7 +21,13 @@ const useStyles = makeStyles({
 
 const UserInfo: React.FC<Props> = ({ userData }) => {
   const classes = useStyles();
+  const router = useRouter()
   const { onStatusChange } = useUser(userData);
+  const handleClick = (e: { preventDefault: () => void; }) => {
+    e.preventDefault()
+    localStorage.setItem('userToEdit', JSON.stringify(userData));
+    router.push('./edit')
+  }
 
   return (
     <TableRow
@@ -40,6 +49,11 @@ const UserInfo: React.FC<Props> = ({ userData }) => {
           ) : (
             <CheckCircleIcon onClick={onStatusChange} />
           )}
+        </IconButton>
+      </TableCell>
+      <TableCell>
+        <IconButton onClick={handleClick}>
+          <EditIcon />
         </IconButton>
       </TableCell>
     </TableRow>

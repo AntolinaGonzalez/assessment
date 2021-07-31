@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Button, Typography } from "@material-ui/core";
-import { Controller, useForm } from "react-hook-form";
+import { Box, Button } from "@material-ui/core";
+import {  useForm } from "react-hook-form";
 import { useUser } from "../hooks/useUser";
 import { User } from "../model/user";
 
 interface Props {
-  initialData: User
-  isNew: boolean
+  initialData: User;
+  isNew: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -22,20 +22,27 @@ const useStyles = makeStyles((theme) => ({
 
 const UserForm: React.FC<Props> = ({ initialData, isNew }) => {
   const classes = useStyles();
-  const [newUser, setNewUser] = useState(initialData);
+  const [user, setUser] = useState(initialData);
   const { handleSubmit, control } = useForm();
-  const { onSubmitNewUser } = useUser(newUser);
-  const onHandleSubmit = (data: any) => {
-    setNewUser({
-      ...initialData,
-      status: "active",
-      first_name: data.firstName,
-      last_name: data.lastName,
-    });
+  const { onSubmitNewUser, editUser} = useUser(user);
+  console.log("el user ", user);
+  const onHandleSubmit = (e: { preventDefault: () => void; }) => {
+    e.preventDefault()
+    if (isNew){
+      onSubmitNewUser();
+    }else{
+      editUser()
+    }
+    
   };
-  useEffect(() => {
-    onSubmitNewUser();
-  }, [newUser]);
+
+  const fieldChange = (e: { target: { id: any; value: any; }; }) => {
+    const id = e.target.id;
+    console.log("el id", id);
+    const value = e.target.value;
+    console.log("el vaue", value);
+    setUser({...user, [id]:value});
+  };
 
   return (
     <>
@@ -43,7 +50,7 @@ const UserForm: React.FC<Props> = ({ initialData, isNew }) => {
         className={classes.root}
         noValidate
         autoComplete="off"
-        onSubmit={handleSubmit(onHandleSubmit)}
+        onSubmit={onHandleSubmit}
       >
         <Box
           display="flex"
@@ -51,39 +58,28 @@ const UserForm: React.FC<Props> = ({ initialData, isNew }) => {
           justifyContent="center"
           alignItems="center"
         >
-          <Controller
-            name="firstName"
-            control={control}
-            defaultValue=""
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <TextField
-                label={initialData ? initialData.first_name : 'First Name' }
-                variant="outlined"
-                value={value}
-                onChange={onChange}
-                error={!!error}
-                defaultValue="hola"
-                helperText={error ? error.message : null}
-              />
-            )}
-            rules={{ required: "First name required" }}
+          <TextField
+            id="first_name"
+            label="First Name"
+            variant="outlined"
+            value={user ? user.first_name : ""}
+            onChange={fieldChange}
+            //error={!!error}
+            defaultValue="hola"
+            //helperText={error ? error.message : null}
           />
-          <Controller
-            name="lastName"
-            control={control}
-            defaultValue=""
-            render={({ field: { onChange, value }, fieldState: { error } }) => (
-              <TextField
-                label={initialData ? initialData.last_name :"Last Name"}
-                variant="outlined"
-                value={value}
-                onChange={onChange}
-                error={!!error}
-                helperText={error ? error.message : null}
-              />
-            )}
-            rules={{ required: "Last name required" }}
+
+          <TextField
+            id="last_name"
+            name="first_name"
+            label="Last Name"
+            variant="outlined"
+            value={user? user.last_name : ""}
+            onChange={fieldChange}
+            //error={!!error}
+            //helperText={error ? error.message : null}
           />
+
           <Button variant="contained" color="secondary" type="submit">
             Submit
           </Button>

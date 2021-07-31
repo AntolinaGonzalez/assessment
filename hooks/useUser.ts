@@ -50,8 +50,33 @@ export const useUser = (initialData: User) => {
 
     mutate(`http://js-assessment-backend.herokuapp.com/users`);
   }, [initialData]);
+
+  const editUser = useCallback(async () => {
+    console.log("initialData ", initialData);
+    console.log('hacuendo la editacion')
+    if (initialData || !initialData) {
+      try {
+        const result = await axios.put(
+          `http://js-assessment-backend.herokuapp.com/users/`+initialData.id,
+          {
+            first_name:initialData.first_name,
+            last_name: initialData.last_name
+          },
+          {
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        console.log('result ', result)
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    //mutate(`http://js-assessment-backend.herokuapp.com/users`);
+  }, [initialData]);
   return {
     onStatusChange,
     onSubmitNewUser,
+    editUser
   };
 };

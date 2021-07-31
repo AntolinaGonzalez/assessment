@@ -92,13 +92,16 @@ const UserList: React.FC<Props> = ({ userList }) => {
                   {column.label}
                 </TableCell>
               ))}
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {userList
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
-                return <UserInfo userData={row} />;
+                return (
+                    <UserInfo userData={row}/>
+                );
               })}
           </TableBody>
         </Table>
