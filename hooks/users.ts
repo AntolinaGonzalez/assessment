@@ -6,7 +6,7 @@ const fetcher = (path: RequestInfo) =>
   );
 export const users = () => {
   const { data, error } = useSWR(
-    `http://js-assessment-backend.herokuapp.com/users`,
+    `https://js-assessment-backend.herokuapp.com/users`,
     fetcher
   );
 
