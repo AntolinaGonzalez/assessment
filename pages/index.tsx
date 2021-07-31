@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import { Box, Container, Typography, Button } from "@material-ui/core";
+import { Box, Container, Typography, Button, Tooltip } from "@material-ui/core";
 import React from "react";
 import useMobile from "../hooks/useMobile";
 import InputNumber from "../components/InputNumber";
@@ -11,12 +11,20 @@ import UserList from "../components/UserList";
 export default function Home() {
   const isMobile = useMobile();
   const { usersInfo, loader } = users();
+  const [openButtonTooltip, setOpenButtonTooltip] = React.useState(false);
   const firstAssessment = false;
   usersInfo?.sort(function (a: any, b: any) {
-    const dateOne = new Date(b.updated_at) as any
-    const dateTwo = new Date(a.updated_at) as any
-    return dateOne - dateTwo
+    const dateOne = new Date(b.updated_at) as any;
+    const dateTwo = new Date(a.updated_at) as any;
+    return dateOne - dateTwo;
   });
+  const handleCloseButtonTooltip = () => {
+    setOpenButtonTooltip(false);
+  };
+
+  const handleOpenButtonTooltip = () => {
+    setOpenButtonTooltip(true);
+  };
 
   return (
     <Box style={{ backgroundColor: "#efdee6", borderBottom: "dashed" }}>
@@ -73,9 +81,16 @@ export default function Home() {
               pb={1}
               style={{ borderBottom: "dashed" }}
             >
-              <Button variant="contained" color="secondary" href="./new">
-                Create user
-              </Button>
+              <Tooltip
+                open={openButtonTooltip}
+                onClose={handleCloseButtonTooltip}
+                onOpen={handleOpenButtonTooltip}
+                title="Create new user"
+              >
+                <Button variant="contained" color="secondary" href="./new">
+                  Create user
+                </Button>
+              </Tooltip>
             </Box>
             <Box display="flex" justifyContent="center">
               {loader ? <Loader /> : <UserList userList={usersInfo} />}

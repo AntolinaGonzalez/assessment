@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Button } from "@material-ui/core";
-import { useForm } from "react-hook-form";
 import { useUser } from "../hooks/useUser";
 import { User } from "../model/user";
+import { useRouter } from "next/router";
 
 interface Props {
   initialData: User;
@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 const UserForm: React.FC<Props> = ({ initialData, isNew }) => {
   const classes = useStyles();
+  const router = useRouter();
   const [user, setUser] = useState(initialData);
   const { onSubmitNewUser, editUser } = useUser(user);
   console.log("el user ", user);
@@ -29,8 +30,10 @@ const UserForm: React.FC<Props> = ({ initialData, isNew }) => {
     e.preventDefault();
     if (isNew) {
       onSubmitNewUser();
+      router.push("/");
     } else {
       editUser();
+      router.push("/");
     }
   };
 
