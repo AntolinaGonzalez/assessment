@@ -4,16 +4,16 @@ import { mutate } from "swr";
 import { User } from "../model/user";
 
 export const useUser = (initialData: User) => {
-  const headers = {
-    "Content-Type": "application/json",
-    Accept: "*/*",
-  };
-  const onStatusChange = useCallback(async () => {
+  const [loader, setLoader] = useState(false);
+  const [snackbar, setSnackbar] = useState(false);
+  const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+  const onStatusChange = async () => {
     if (initialData.status == "active") {
       status = "locked";
     } else {
       status = "active";
     }
+    setLoader(true);
     try {
       await axios.put(
         `http://js-assessment-backend.herokuapp.com/users/` + initialData.id,
@@ -21,18 +21,22 @@ export const useUser = (initialData: User) => {
           status: status,
         },
         {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
         }
       );
-    } catch (e) {
-      console.log(e);
-    }
+    } catch (e) {}
     mutate(`http://js-assessment-backend.herokuapp.com/users`);
-  }, [initialData]);
+    await delay(3000);
+    setLoader(false);
+    setSnackbar(true);
+  };
 
   const onSubmitNewUser = useCallback(async () => {
     console.log("initialData ", initialData);
-   
+
     if (initialData || !initialData) {
       try {
         const result = await axios.post(
@@ -42,7 +46,7 @@ export const useUser = (initialData: User) => {
             headers: { "Content-Type": "application/json" },
           }
         );
-        console.log('result ', result)
+        console.log("result ", result);
       } catch (e) {
         console.log(e);
       }
@@ -52,21 +56,18 @@ export const useUser = (initialData: User) => {
   }, [initialData]);
 
   const editUser = useCallback(async () => {
-    console.log("initialData ", initialData);
-    console.log('hacuendo la editacion')
     if (initialData || !initialData) {
       try {
         const result = await axios.put(
-          `http://js-assessment-backend.herokuapp.com/users/`+initialData.id,
+          `http://js-assessment-backend.herokuapp.com/users/` + initialData.id,
           {
-            first_name:initialData.first_name,
-            last_name: initialData.last_name
+            first_name: initialData.first_name,
+            last_name: initialData.last_name,
           },
           {
             headers: { "Content-Type": "application/json" },
           }
         );
-        console.log('result ', result)
       } catch (e) {
         console.log(e);
       }
@@ -77,6 +78,8 @@ export const useUser = (initialData: User) => {
   return {
     onStatusChange,
     onSubmitNewUser,
-    editUser
+    editUser,
+    snackbar,
+    loader,
   };
 };
