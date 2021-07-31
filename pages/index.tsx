@@ -57,7 +57,7 @@ export default function Home() {
               />
               <Box marginLeft={isMobile ? 1 : 12}>
                 <Typography variant="h3" style={{ fontStyle: "italic" }}>
-                  User's List
+                  User`s List
                 </Typography>
               </Box>
             </Box>
