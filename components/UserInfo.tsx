@@ -1,13 +1,20 @@
 import React from "react";
 import TableCell from "@material-ui/core/TableCell";
-import { Chip, IconButton, makeStyles, Tooltip } from "@material-ui/core";
+import {
+  Box,
+  Chip,
+  IconButton,
+  makeStyles,
+  Switch,
+  Tooltip,
+} from "@material-ui/core";
 import { useUser } from "../hooks/useUser";
 import { User } from "../model/user";
 import EditIcon from "@material-ui/icons/Edit";
 import { useRouter } from "next/router";
 import SimpleSnackbar from "./SimpleSnackBar";
 import StatusLoader from "./StatusLoader";
-import DoneIcon from "@material-ui/icons/Done";
+import FiberManualRecordRoundedIcon from "@material-ui/icons/FiberManualRecordRounded";
 
 interface Props {
   userData: User;
@@ -15,6 +22,12 @@ interface Props {
 const useStyles = makeStyles({
   userLocked: {
     textDecoration: "line-through",
+  },
+  locked: {
+    color: "#f25454",
+  },
+  active: {
+    color: "#5fe875",
   },
 });
 
@@ -49,7 +62,14 @@ const UserInfo: React.FC<Props> = ({ userData }) => {
       <TableCell
         className={userData.status == "locked" ? classes.userLocked : ""}
       >
-        {userData.id}
+        <Box display="flex">
+          <FiberManualRecordRoundedIcon
+            className={
+              userData.status == "active" ? classes.active : classes.locked
+            }
+          />
+          {userData.id}
+        </Box>
       </TableCell>
       <TableCell
         className={userData.status == "locked" ? classes.userLocked : ""}
@@ -72,34 +92,22 @@ const UserInfo: React.FC<Props> = ({ userData }) => {
         {userData.last_name}
       </TableCell>
       <TableCell>
-        <Tooltip
-          open={openStatusTooltip}
-          onClose={handleCloseStatusTooltip}
-          onOpen={handleOpenStatusTooltip}
-          title="Change user status by clicking"
-        >
-          {loader ? (
-            <StatusLoader />
-          ) : userData.status == "locked" ? (
-            <Chip
-              onDelete={onStatusChange}
-              label="Locked"
-              color="secondary"
-              clickable
-              onClick={onStatusChange}
-              style={{ textDecoration: "none !important" }}
-            />
-          ) : (
-            <Chip
-              onClick={onStatusChange}
-              onDelete={onStatusChange}
-              deleteIcon={<DoneIcon style={{ color: "white" }} />}
-              style={{ backgroundColor: "green", color: "white" }}
-              label="Active"
-              clickable
-            />
-          )}
-        </Tooltip>
+        <>
+          <Tooltip
+            open={openStatusTooltip}
+            onClose={handleCloseStatusTooltip}
+            onOpen={handleOpenStatusTooltip}
+            title="Change user status by switching"
+          >
+            {loader ? (
+              <StatusLoader />
+            ) : userData.status == "locked" ? (
+              <Switch color="secondary" onClick={onStatusChange} />
+            ) : (
+              <Switch color="secondary" onClick={onStatusChange} checked />
+            )}
+          </Tooltip>
+        </>
       </TableCell>
       <TableCell>
         <Tooltip

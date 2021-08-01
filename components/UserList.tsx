@@ -54,9 +54,10 @@ const useStyles = makeStyles({
   root: {
     width: "100%",
     marginBottom: "20px",
-  },
-  userLocked: {
-    textDecoration: "line-through",
+    "& .MuiTableCell-root": {
+      padding: "2px",
+      color: "#262424",
+    },
   },
 });
 
@@ -92,6 +93,8 @@ const UserList: React.FC<Props> = ({ userList }) => {
                     minWidth: column.minWidth,
                     fontWeight: "bolder",
                     backgroundColor: "#f2f2f2",
+                    padding: "14px",
+                    color: "black",
                   }}
                 >
                   {column.label}
