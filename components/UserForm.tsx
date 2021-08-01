@@ -5,6 +5,7 @@ import { Box, Button } from "@material-ui/core";
 import { useUser } from "../hooks/useUser";
 import { User } from "../model/user";
 import { useRouter } from "next/router";
+import useMobile from "../hooks/useMobile";
 
 interface Props {
   initialData: User;
@@ -18,11 +19,15 @@ const useStyles = makeStyles((theme) => ({
       width: "25ch",
     },
   },
+  formWidth: {
+    width: "400px",
+  },
 }));
 
 const UserForm: React.FC<Props> = ({ initialData, isNew }) => {
   const classes = useStyles();
   const router = useRouter();
+  const isMobile = useMobile();
   const [user, setUser] = useState(initialData);
   const { onSubmitNewUser, editUser } = useUser(user);
   console.log("el user ", user);
@@ -68,7 +73,7 @@ const UserForm: React.FC<Props> = ({ initialData, isNew }) => {
             helperText={
               user ? (!user.first_name ? "First Name is required" : null) : ""
             }
-            style={{ width: "400px" }}
+            className={isMobile ? "" : classes.formWidth}
           />
 
           <TextField
@@ -80,7 +85,7 @@ const UserForm: React.FC<Props> = ({ initialData, isNew }) => {
             value={user ? user.last_name : ""}
             onChange={fieldChange}
             fullWidth
-            style={{ width: "400px" }}
+            className={isMobile ? "" : classes.formWidth}
             error={user ? !user.last_name : false}
             helperText={
               user ? (!user.last_name ? "Last Name is required" : null) : ""

@@ -112,9 +112,11 @@ const UserList: React.FC<Props> = ({ userList }) => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.id}>
-                    <UserInfo userData={row} />
-                  </TableRow>
+                  <>
+                    <TableRow hover tabIndex={-1} key={row.id}>
+                      <UserInfo userData={row} />
+                    </TableRow>
+                  </>
                 );
               })}
           </TableBody>

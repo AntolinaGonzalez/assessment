@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import TextField from "@material-ui/core/TextField";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Container, Typography } from "@material-ui/core";
 import { User } from "../model/user";
@@ -26,12 +25,19 @@ const useStyles = makeStyles((theme) => ({
     margin: "auto",
     padding: "50px",
     backgroundColor: "white",
-    boxShadow:'1px -2px 50px -20px #000000'
+    boxShadow: "1px -2px 50px -20px #000000",
+  },
+  formStyleMobile: {
+    backgroundColor: "white",
+    boxShadow: "1px -2px 50px -20px #000000",
+    padding: "20%",
+    marginTop: "10%",
   },
 }));
 
 const NewUserForm: React.FC<Props> = ({ initialData }) => {
   const classes = useStyles();
+  const isMobile = useMobile();
   return (
     <Box style={{ backgroundColor: "#efdee6", height: "100vh" }}>
       <Container>
@@ -49,8 +55,14 @@ const NewUserForm: React.FC<Props> = ({ initialData }) => {
           />
         </Box>
         <Box>
-          <Box className={classes.formStyle}>
-            <Box display="flex" justifyContent="center" style={{ marginRight: "20px" }}>
+          <Box
+            className={isMobile ? classes.formStyleMobile : classes.formStyle}
+          >
+            <Box
+              display="flex"
+              justifyContent="center"
+              style={{ marginRight: "20px" }}
+            >
               <Typography variant="h3">New user</Typography>
             </Box>
             <UserForm initialData={initialData} isNew={true} />
