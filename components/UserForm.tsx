@@ -72,6 +72,7 @@ const UserForm: React.FC<Props> = ({ initialData, isNew }) => {
           />
 
           <TextField
+            required
             id="last_name"
             name="first_name"
             label="Last Name"

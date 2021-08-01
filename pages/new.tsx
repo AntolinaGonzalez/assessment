@@ -19,12 +19,21 @@ const useStyles = makeStyles((theme) => ({
       width: "25ch",
     },
   },
+  formStyle: {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "fit-content",
+    margin: "auto",
+    padding: "50px",
+    backgroundColor: "white",
+    boxShadow:'1px -2px 50px -20px #000000'
+  },
 }));
 
 const NewUserForm: React.FC<Props> = ({ initialData }) => {
-
+  const classes = useStyles();
   return (
-    <Box>
+    <Box style={{ backgroundColor: "#efdee6", height: "100vh" }}>
       <Container>
         <Head>
           <title>Dina Challenge</title>
@@ -40,15 +49,8 @@ const NewUserForm: React.FC<Props> = ({ initialData }) => {
           />
         </Box>
         <Box>
-          <Box
-            display="flex"
-            justifyContent="space-around"
-            top="40%"
-            margin={0}
-            position="absolute"
-            
-          >
-            <Box display="flex" justifyContent="center">
+          <Box className={classes.formStyle}>
+            <Box display="flex" justifyContent="center" style={{ marginRight: "20px" }}>
               <Typography variant="h3">New user</Typography>
             </Box>
             <UserForm initialData={initialData} isNew={true} />

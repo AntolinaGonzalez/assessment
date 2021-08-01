@@ -7,11 +7,13 @@ import InputNumber from "../components/InputNumber";
 import { users } from "../hooks/users";
 import Loader from "../components/Loader";
 import UserList from "../components/UserList";
+import OnBoarding from "../components/OnBoarding";
 
 export default function Home() {
   const isMobile = useMobile();
   const { usersInfo, loader } = users();
   const [openButtonTooltip, setOpenButtonTooltip] = React.useState(false);
+  const [openOnBoarding, setOnBoarding] = React.useState(false);
   const firstAssessment = false;
   usersInfo?.sort(function (a: any, b: any) {
     const dateOne = new Date(b.updated_at) as any;
@@ -26,8 +28,14 @@ export default function Home() {
     setOpenButtonTooltip(true);
   };
 
+  if (typeof window !== "undefined") {
+    if (!localStorage.getItem("onBoarding") && !openOnBoarding) {
+      setOnBoarding(!localStorage.getItem("onBoarding"));
+    }
+  }
+
   return (
-    <Box style={{ backgroundColor: "#efdee6", borderBottom: "dashed" }}>
+    <Box style={{ backgroundColor: "#efdee6", height: "100%" }}>
       <Container>
         <Head>
           <title>Dina Challenge</title>
@@ -75,12 +83,7 @@ export default function Home() {
                 </Typography>
               </Box>
             </Box>
-            <Box
-              display="flex"
-              justifyContent="flex-end"
-              pb={1}
-              style={{ borderBottom: "dashed" }}
-            >
+            <Box display="flex" justifyContent="flex-end" pb={1}>
               <Tooltip
                 open={openButtonTooltip}
                 onClose={handleCloseButtonTooltip}
@@ -92,11 +95,16 @@ export default function Home() {
                 </Button>
               </Tooltip>
             </Box>
-            <Box display="flex" justifyContent="center">
+            <Box
+              display="flex"
+              justifyContent="center"
+              style={{ boxShadow: "1px -2px 50px -20px #000000" }}
+            >
               {loader ? <Loader /> : <UserList userList={usersInfo} />}
             </Box>
           </>
         )}
+        {openOnBoarding ? <OnBoarding /> : ""}
       </Container>
     </Box>
   );
