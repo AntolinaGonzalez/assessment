@@ -102,7 +102,7 @@ export default function OnBoarding() {
         <DialogContent>
           <Box m={1}>How create a new User?</Box>
           <DialogContentText>
-            Click the button 'CREATE NEW USER'. It look like this
+            Click the button &quot;CREATE NEW USER&quot;. It look like this
           </DialogContentText>
           <Box display="flex" justifyContent="center">
             <Button variant="contained" color="secondary">
