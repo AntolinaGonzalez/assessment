@@ -44,3 +44,7 @@ I used local storage to save previous conversions. Also, I added pre-push to git
 link: https://assessment-zeta.vercel.app/ 
 
 I hope you like it! I enjoyed doing it
+
+
+- yarn install
+- yarn dev
