@@ -95,13 +95,17 @@ export default function Home() {
                 </Button>
               </Tooltip>
             </Box>
-            <Box
-              display="flex"
-              justifyContent="center"
-              style={{ boxShadow: "1px -2px 50px -20px #000000" }}
-            >
-              {loader ? <Loader /> : <UserList userList={usersInfo} />}
-            </Box>
+            {loader ? (
+              <Loader />
+            ) : (
+              <Box
+                display="flex"
+                justifyContent="center"
+                style={{ boxShadow: "1px -2px 50px -20px #000000" }}
+              >
+                <UserList userList={usersInfo} />
+              </Box>
+            )}
           </>
         )}
         {openOnBoarding ? <OnBoarding /> : ""}
